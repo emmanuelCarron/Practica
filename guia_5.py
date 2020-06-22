@@ -1,3 +1,5 @@
+from math import pi
+
 class AlumnoMateria:
 
     def __init__(self, nombre, nota, materia):
@@ -100,7 +102,29 @@ def mas_lejos(puntos:[Punto]) -> Punto:
 
 '''         3           '''
 
+class Circulo:
 
+    def __init__(self, centro, radio):
+        self.centro = centro
+        self.radio = radio
+    
+    def diametro(self):
+        return (2*self.radio)
+
+    def perimetro(self):
+        return (2*pi*self.radio)
+
+    def area(self):
+        return (pi*(self.radio**2))
+
+    def __eq__(self, otro):
+        return (self.centro == otro.centro and self.radio == otro.radio)
+
+    def mover(self, par_movimiento):
+        self.centro = par_movimiento
+
+
+#------------------------------------------------------------
 alumno1 = AlumnoMateria("Juan", 5, "Lengua")
 print(alumno1.mostrar_estado())
 print(alumno1)
@@ -125,3 +149,9 @@ print(B.distancia_origen())
 print(C.distancia_origen())
 
 print(mas_lejos([Punto(2,3), Punto(5,5), Punto(1,5)]))
+
+c= Circulo((0,0), 4.5)
+print(c.diametro())
+print(c.area())
+print(c.perimetro())
+
