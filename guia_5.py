@@ -123,6 +123,18 @@ class Circulo:
     def mover(self, par_movimiento):
         self.centro = par_movimiento
 
+'''         4           '''
+
+class Fraccion:
+
+    def __init_(self, num, den): # recibe numerador y denominador
+        self.numerador = num
+        if den == 0:
+            raise ZeroDivisionError("Recuerda que el denominador no puede ser 0")
+        else:
+            self.denominador = den
+
+        
 
 #------------------------------------------------------------
 alumno1 = AlumnoMateria("Juan", 5, "Lengua")
