@@ -10,7 +10,7 @@ class AlumnoMateria:
         self.__condicion = ""
 
     def __str__(self):
-        return (f"{self.nombre}, {self.nota}, {self.materia}")
+        return f"{self.nombre}, {self.nota}, {self.materia}"
 
     def mostrar_estado(self)->str:
         '''calcula si esta regular, promocionado, o libre.'''
@@ -32,7 +32,7 @@ class RegistroAlumnoMateria:
         self.__condicion = "Regular"
 
     def __str__(self):
-        return (f"{self.nombre}, {self.__notas}, {self.materia}, {self.__condicion}")
+        return f"{self.nombre}, {self.__notas}, {self.materia}, {self.__condicion}"
 
     def calcular_promedio(self):
         return sum(self.__notas) / len(self.__notas)
@@ -43,7 +43,7 @@ class RegistroAlumnoMateria:
         if promedio < 4:
             self.__condicion = "Libre"
         #elif promedio >= 7 and len([i for i in self.__notas if i<6]) == 0:
-        elif promedio >= 7 and min(self.__notas) < 6:
+        elif promedio >= 7 and min(self.__notas) >= 6:
             self.__condicion = "Promocional"
         else:
             self.__condicion = "Regular"
@@ -72,15 +72,15 @@ class Punto:
 
     def __eq__(self, otro):
         """Devolver True si self es igual a otro."""
-        return (self.par == otro.par)
+        return self.par == otro.par
 
     def __str__(self):
         """Devolver un string con la representación del punto."""
-        return "{}".format(self.par)
+        return f"{self.par}"
 
     def es_origen(self):
         """Me dice si el punto corresponde al origen del plano"""
-        return (self.par == (0,0))
+        return self.par == (0,0)
 
     def mover(self,dx,dy):
         """Mueve el punto dx lugares en x y dx lugares en y"""
@@ -103,7 +103,7 @@ def mas_lejos(puntos:[Punto]) -> Punto:
 '''         3           '''
 
 class Circulo:
-
+    #centro debe ser un par ordenado
     def __init__(self, centro, radio):
         self.centro = centro
         self.radio = radio
@@ -127,12 +127,15 @@ class Circulo:
 
 class Fraccion:
 
-    def __init_(self, num, den): # recibe numerador y denominador
+    def __init__(self, num, den): # recibe numerador y denominador
         self.numerador = num
         if den == 0:
             raise ZeroDivisionError("Recuerda que el denominador no puede ser 0")
         else:
             self.denominador = den
+
+    def __str__(self):
+        return (f"{self.numerador}/{self.denominador}")
 
         
 
@@ -166,4 +169,7 @@ c= Circulo((0,0), 4.5)
 print(c.diametro())
 print(c.area())
 print(c.perimetro())
+
+un_medio = Fraccion(1,2)
+print(un_medio)
 
