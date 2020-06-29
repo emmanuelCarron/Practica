@@ -139,7 +139,16 @@ class Fraccion:
     
     def __eq__(self, otro):
         return ((self.numerador/self.denominador)==(otro.numerador/otro.denominador))
-        
+def comun_divisor(a,b):
+    return a if not b else comun_divisor(b, a%b)
+
+def min_com_mult(a,b):
+    return a*b//comun_divisor(a,b)
+
+def sumar_fracciones(f1, f2):
+    denominador = min_com_mult(f1.denominador, f2.denominador)
+    numerador = (denominador//f1.denominador*f1.numerador)+(denominador//f2.denominador*f2.numerador)
+    return Fraccion(numerador,denominador)
 
 #------------------------------------------------------------
 alumno1 = AlumnoMateria("Juan", 5, "Lengua")
@@ -174,4 +183,5 @@ print(c.perimetro())
 
 un_medio = Fraccion(1,2)
 print(un_medio)
-
+dos_tercios = Fraccion(2,3)
+print(sumar_fracciones(un_medio,dos_tercios))
