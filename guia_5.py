@@ -136,7 +136,9 @@ class Fraccion:
 
     def __str__(self):
         return (f"{self.numerador}/{self.denominador}")
-
+    
+    def __eq__(self, otro):
+        return ((self.numerador/self.denominador)==(otro.numerador/otro.denominador))
         
 
 #------------------------------------------------------------
