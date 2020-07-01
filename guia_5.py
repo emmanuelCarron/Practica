@@ -1,9 +1,20 @@
 from math import pi
 
 class AlumnoMateria:
+    '''
+    AlumnoMateria agrupa el nombre de un alumno, una nota y la materia
+    en la que obtuvo dicha calificación.
 
+    Operaciones:
+        + Mostrar estado (muestra la condición de cursado del alumno)
+    Condiciones:
+        + Su representación str contiene los atributos ingresados en el constructor
+        + Condición Libre: nota menor a 4
+        + Condición Promocional: nota 7 o más
+        + Condición Regular: nota entre 4 y 6 
+    '''
     def __init__(self, nombre, nota, materia):
-        #función que inicializa una variable AlumnoMateria
+        ''' Constructor de TAD, toma nombre del alumno, nota y materia'''
         self.nombre = nombre
         self.nota = nota
         self.materia = materia
@@ -13,7 +24,7 @@ class AlumnoMateria:
         return f"{self.nombre}, {self.nota}, {self.materia}"
 
     def mostrar_estado(self)->str:
-        '''calcula si esta regular, promocionado, o libre.'''
+        ''' Calcula si esta regular, promocionado, o libre.'''
         if self.nota < 4:
             self.__condicion = "Libre"
         elif self.nota >= 7:
@@ -24,39 +35,49 @@ class AlumnoMateria:
 
 
 class RegistroAlumnoMateria:
+    '''
+    RegistroAlumnoMateria agrupa nombre de alumno, materia y permite varias notas
 
+    Operaciones:
+        + Calcular promedio
+        + Condición (regular, promocional o libre según el promedio)
+        + Agregar nota
+        + Mostrar nota
+
+    Condiciones:
+        + La condición se calcula en base al promedio
+    '''
     def __init__(self, nombre, materia):
+        ''' Constructor de TAD, toma nombre de alumno y materia '''
         self.nombre = nombre
         self.materia = materia
-        self.__notas = () 
+        self.__notas = [] 
         self.__condicion = "Regular"
 
     def __str__(self):
         return f"{self.nombre}, {self.__notas}, {self.materia}, {self.__condicion}"
 
     def calcular_promedio(self):
+        ''' Devuelve promedio de las notas '''
         return sum(self.__notas) / len(self.__notas)
 
     def condicion(self)->str:
-        '''calcula si esta regular, promocionado, o libre.'''
+        ''' Devuelve una cadena con la condición de cursado del alumno'''
         promedio = self.calcular_promedio()
         if promedio < 4:
             self.__condicion = "Libre"
-        #elif promedio >= 7 and len([i for i in self.__notas if i<6]) == 0:
         elif promedio >= 7 and min(self.__notas) >= 6:
             self.__condicion = "Promocional"
         else:
             self.__condicion = "Regular"
         return self.__condicion
     
-    def agregar_nota(self, nota): #puede ser int o una tupla de ints
-        if isinstance(nota, (tuple)):
-            self.__notas = self.__notas + nota
-        elif isinstance(nota, (int)):
-            n = [nota]
-            self.__notas = self.__notas + tuple(n)
+    def agregar_nota(self, nota):
+        ''' Agrega nota a la lista de notas '''
+        self.__notas = self.__notas.append(nota)
 
     def mostrar_notas(self):
+        ''' Devuelve la lista de notas '''
         return self.__notas
 
 '''         2           '''
@@ -94,40 +115,74 @@ class Punto:
 
 
 def mas_lejos(puntos:[Punto]) -> Punto:
-    #guardamos las distancias al origen en una lista
+    ''' Guardamos las distancias al origen en una lista '''
     distancias = [punto.distancia_origen() for punto in puntos]
-    #el índice de la mayor distancia es el índice del punto lejano al origen
+    ''' El índice de la mayor distancia es el índice del punto lejano al origen '''
     indice_lejano = distancias.index(max(distancias))
     return puntos[indice_lejano]
 
 '''         3           '''
 
 class Circulo:
-    #centro debe ser un par ordenado
+    ''' 
+    Circulo define un círculo apartir de su centro y radio
+
+    Operaciones:
+        + Diámetro
+        + Perímetro
+        + Área
+        + Método especial eq
+        + Mover
+
+    Condiciones:
+        + El centro debe ser un par ordenado
+        + Dos circunferencias son iguales si radio y centro son iguales
+        + El radio debe ser mayor a 0
+    '''
+
     def __init__(self, centro, radio):
+        ''' Constructor de TAD, toma un par ordenado representando el centro y un radio '''
         self.centro = centro
-        self.radio = radio
+        if radio <= 0:
+            raise ValueError("El radio de una circunferencia debe ser positivo")
+        else:
+            self.radio = radio
     
     def diametro(self):
+        ''' Devuelve el diámetro de la circunferencia '''
         return (2*self.radio)
 
     def perimetro(self):
+        ''' Devuelve el perímetro de la circunferencia'''
         return (2*pi*self.radio)
 
     def area(self):
+        ''' Devuelve el área del círculo '''
         return (pi*(self.radio**2))
 
     def __eq__(self, otro):
+        ''' Compara el círculo con otro dado y devuelve True si son equivalentes '''
         return (self.centro == otro.centro and self.radio == otro.radio)
 
-    def mover(self, par_movimiento):
-        self.centro = par_movimiento
+    def mover(self, nuevo_centro):
+        ''' Mueve el círculo cambiando de coordenadas el centro '''
+        self.centro = nuevo_centro
 
 '''         4           '''
 
 class Fraccion:
+    '''
+    Fraccion es un número racional escrito con numerador y denominador
 
-    def __init__(self, num, den): # recibe numerador y denominador
+    Operaciones:
+        + Suma
+
+    Condiciones:
+        + Denominador distinto de 0
+        + Debemos poder comparar fracciones equivalentes
+    '''
+    def __init__(self, num, den): 
+        ''' Constructor, recibe numerador y denominador '''
         self.numerador = num
         if den == 0:
             raise ZeroDivisionError("Recuerda que el denominador no puede ser 0")
@@ -135,17 +190,27 @@ class Fraccion:
             self.denominador = den
 
     def __str__(self):
-        return "1" if self.numerador == self.denominador else (f"{self.numerador}/{self.denominador}")
+        ''' Devuelve numerado/denominador '''
+        return (f"{self.numerador}/{self.denominador}")
     
     def __eq__(self, otro):
+        ''' Dos fracciones serán equivalentes si resolvemos los cocientes y éstos son iguales
+        En ese caso devuelve True
+        '''
         return ((self.numerador/self.denominador)==(otro.numerador/otro.denominador))
+
     def comun_divisor(self, a, b):
+        ''' Devuelve el común divisor entre a y b '''
         return a if not b else self.comun_divisor(b, a%b)
 
     def min_com_mult(self, a, b):
+        ''' Devuelve el mínimo común múltiplo entre a y b '''
         return a*b//self.comun_divisor(a, b)
 
     def sumar_fracciones(self, otro):
+        ''' Adición con otra fracción dada calculando denominador y numerador.
+        Devuelve otra instancia de Fracción con el numerador y denominador obtenidos.
+        '''
         denominador = self.min_com_mult(self.denominador, otro.denominador)
         numerador = (denominador//self.denominador*self.numerador)+(denominador//otro.denominador*otro.numerador)
         return Fraccion(numerador,denominador)
@@ -160,7 +225,7 @@ print(alumno2)
 alumno2.agregar_nota(9)
 print(alumno2.mostrar_notas())
 print(alumno2.calcular_promedio())
-alumno2.agregar_nota((4,6,7))
+alumno2.agregar_nota(4)
 print(alumno2.mostrar_notas())
 print(alumno2.calcular_promedio())
 print(alumno2.condicion())
