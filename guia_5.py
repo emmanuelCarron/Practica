@@ -59,7 +59,11 @@ class RegistroAlumnoMateria:
 
     def calcular_promedio(self):
         ''' Devuelve promedio de las notas '''
-        return sum(self.__notas) / len(self.__notas)
+        if len(self.__notas) == 0:
+            prom = 0
+        else:
+            prom = sum(self.__notas) / len(self.__notas)
+        return prom
 
     def condicion(self)->str:
         ''' Devuelve una cadena con la condición de cursado del alumno'''
@@ -74,7 +78,7 @@ class RegistroAlumnoMateria:
     
     def agregar_nota(self, nota):
         ''' Agrega nota a la lista de notas '''
-        self.__notas = self.__notas.append(nota)
+        self.__notas.append(nota)
 
     def mostrar_notas(self):
         ''' Devuelve la lista de notas '''
@@ -181,8 +185,12 @@ class Fraccion:
         + Denominador distinto de 0
         + Debemos poder comparar fracciones equivalentes
     '''
-    def __init__(self, num, den): 
-        ''' Constructor, recibe numerador y denominador '''
+    def __init__(self, num, den=1): 
+        '''
+        Constructor, recibe numerador y denominador
+        Si no se indica denominador, por defecto es 1
+        Esto permite representar enteros como fgracción
+        '''
         self.numerador = num
         if den == 0:
             raise ZeroDivisionError("Recuerda que el denominador no puede ser 0")
@@ -290,6 +298,8 @@ print(c.diametro())
 print(c.area())
 print(c.perimetro())
 
+entero = Fraccion(8)
+print(entero)
 un_medio = Fraccion(1,2)
 print(un_medio)
 uno = Fraccion(2,2)
