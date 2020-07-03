@@ -229,7 +229,8 @@ class Fraccion:
 from copy import deepcopy
 
 class Tablero:
-    '''Tablero es un tablero vacío de celdas cuadradas de un ancho y alto determinado de celdas.
+    '''
+    Tablero es un tablero vacío de celdas cuadradas de un ancho y alto determinado de celdas.
     Las celdas vacías están representadas por 0
     Operaciones:
         + Reset (limpia el tablero)
@@ -259,12 +260,15 @@ class Tablero:
             print('')
 
     def colocar_pieza(self, columna, fila, pieza):
+        '''
+        Coloca una pieza en una celda del tablero determinada por
+        número de columna y número de fila
+        '''
         self.__modificaciones[fila][columna] = pieza 
 
     def guardar_estado(self):
+        ''' Guarda las modificaciones realizadas a nuestro tablero '''
         self.__estado = deepcopy(self.__modificaciones)
-
-
 
 
 #------------------------------------------------------------
